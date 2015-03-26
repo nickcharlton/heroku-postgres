@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+
+require 'bundler/setup'
+require 'heroku/postgres'
+
+require 'pry'
+Pry.start
