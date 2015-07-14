@@ -16,6 +16,10 @@ module Heroku
 
         db
       end
+
+      def backups
+        Backup.all_for_app(app)
+      end
     end
   end
 end
