@@ -26,8 +26,10 @@ module Heroku
         @token = hash['api_key']
       end
 
-      def get(url, opts = {})
-        request(:get, url, opts)
+      %w(get post put delete).each do |m|
+        define_method m do |path, opts = {}|
+          request(m.to_sym, path, opts)
+        end
       end
 
       private
