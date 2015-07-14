@@ -2,7 +2,7 @@ module Heroku
   module Postgres
     # Client for interacting with Heroku & Heroku's Postgres API.
     class Client
-      DEFAULT_HEADERS = { 'User-Agent' => 'Heroku-Postgres' \
+      DEFAULT_HEADERS = { 'User-Agent' => 'Heroku-Postgres/v' \
                                           "#{Heroku::Postgres::VERSION}" }
 
       attr_accessor :url, :username, :password, :token
