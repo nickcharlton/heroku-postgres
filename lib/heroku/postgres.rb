@@ -10,12 +10,27 @@ require 'heroku/postgres/resource'
 module Heroku
   # A container for Postgres.
   module Postgres
-    attr_accessor :client
+    attr_accessor :client, :pg_client
+
+    def self.client
+      @client
+    end
+
+    def self.pg_client
+      @pg_client
+    end
 
     # Login to Heroku Postgres.
+    #
+    # This also configures the clients for both of the APIs we're talking to.
     def self.login(username, password)
       @client = Client.new(username: username, password: password)
       @client.login
+
+      # setup the Heroku Postgres client
+      @pg_client = Client.new(url: 'https://postgres-api.heroku.com',
+                              username: username, password: password)
+      @pg_client.token = @client.token
 
       @client
     end
