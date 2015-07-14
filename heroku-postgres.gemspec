@@ -15,9 +15,12 @@ Gem::Specification.new do |spec|
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
-    f.match(/^(test|spec|features)\//)
+    f.match(%r{^(test|spec|features)/})
   end
   spec.require_paths = ['lib']
+
+  spec.add_dependency 'excon', '~> 0.45'
+  spec.add_dependency 'json', '~> 1.8'
 
   spec.add_development_dependency 'bundler', '~> 1.8'
   spec.add_development_dependency 'rake', '~> 10.0'
