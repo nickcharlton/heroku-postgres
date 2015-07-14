@@ -25,6 +25,15 @@ module Heroku
 
         backups
       end
+
+      # Generate a public URL for accessing this backup.
+      def public_url
+        response = Postgres.pg_client.post("/apps/#{app}/transfers/#{num}"\
+                                           '/actions/public-url')
+
+        hash = JSON.parse(response.body)
+        hash['url']
+      end
     end
   end
 end
