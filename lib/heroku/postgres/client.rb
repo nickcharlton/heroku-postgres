@@ -49,7 +49,7 @@ module Heroku
         headers['Authorization'] = "Basic #{authentication_header}"
 
         connection = Excon.new(@url)
-        connection.request(method: method, path: path,
+        connection.request(method: method, path: "/client/v11#{path}",
                            body: body, query: query, headers: headers)
       end
 

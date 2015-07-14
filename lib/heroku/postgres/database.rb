@@ -7,7 +7,7 @@ module Heroku
                     :resource_url
 
       def self.find(app_name, db_name)
-        response = Postgres.pg_client.get("/client/v11/databases/#{db_name}")
+        response = Postgres.pg_client.get("/databases/#{db_name}")
 
         db = new(JSON.parse(response.body))
 
