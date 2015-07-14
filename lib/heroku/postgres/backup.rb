@@ -10,6 +10,16 @@ module Heroku
                     :canceled_at, :updated_at, :finished_at, :deleted_at,
                     :purged_at, :num_keep
 
+      def self.find(app_name, backup_name)
+        response = Postgres.pg_client.get("/apps/#{app_name}/transfers/"\
+                                          "#{backup_name}?verbose=true")
+
+        backup = new(JSON.parse(response.body))
+        backup.app = app_name
+
+        backup
+      end
+
       def self.all_for_app(app_name)
         response = Postgres.pg_client.get("/apps/#{app_name}/transfers")
 
