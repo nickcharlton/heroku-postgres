@@ -4,6 +4,7 @@ require 'base64'
 
 require 'heroku/postgres/version'
 require 'heroku/postgres/client'
+require 'heroku/postgres/resource'
 
 # A container for Heroku extensions.
 module Heroku
