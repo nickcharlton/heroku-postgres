@@ -2,7 +2,7 @@ module Heroku
   module Postgres
     # Representation and handling of Database objects
     class Database < Resource
-      attr_accessor :name, :app
+      attr_accessor :app, :db
       attr_accessor :database_name, :database_user, :database_password,
                     :resource_url
 
@@ -11,7 +11,7 @@ module Heroku
 
         db = new(JSON.parse(response.body))
 
-        db.name = db_name
+        db.db = db_name
         db.app = app_name
 
         db
