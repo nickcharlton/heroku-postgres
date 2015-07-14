@@ -5,6 +5,7 @@ require 'base64'
 require 'heroku/postgres/version'
 require 'heroku/postgres/client'
 require 'heroku/postgres/resource'
+require 'heroku/postgres/database'
 
 # A container for Heroku extensions.
 module Heroku
@@ -33,6 +34,11 @@ module Heroku
       @pg_client.token = @client.token
 
       @client
+    end
+
+    # A shortcut for finding databases.
+    def self.find(app_name, db_name)
+      Database.find(app_name, db_name)
     end
   end
 end
