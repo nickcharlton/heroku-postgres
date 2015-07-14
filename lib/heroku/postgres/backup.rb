@@ -2,6 +2,8 @@ module Heroku
   module Postgres
     # Representation and handling of Backup objects
     class Backup < Resource
+      attr_accessor :app
+
       attr_accessor :uuid, :num, :from_name, :from_type, :from_url, :to_name,
                     :to_type, :to_url, :options, :source_bytes,
                     :processed_bytes, :succeeded, :created_at, :started_at,
@@ -15,7 +17,10 @@ module Heroku
         backups = JSON.parse(response.body).collect do |c|
           next if c['from_type'] != 'pg_dump'
 
-          new(c)
+          backup = new(c)
+          backup.app = app_name
+
+          backup
         end.compact!
 
         backups
