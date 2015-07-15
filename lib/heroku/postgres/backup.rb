@@ -36,6 +36,25 @@ module Heroku
         backups
       end
 
+      def self.capture(app_name, db_name, poll = false)
+        response = Postgres.pg_client.post("/databases/#{db_name}/backups")
+
+        backup = new(JSON.parse(response.body))
+        backup.app = app_name
+
+        if poll
+          finished_at = nil
+
+          until finished_at
+            sleep(5) # stop for 5s
+            backup.reload
+            finished_at = backup.finished_at
+          end
+        end
+
+        backup
+      end
+
       def reload
         response = Postgres.pg_client.get("/apps/#{app}/transfers/#{uuid}")
         update_with_response(response.body)
