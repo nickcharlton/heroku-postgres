@@ -6,7 +6,7 @@ otherwise not documented.
 
 It was primarily built to automate creating backups for usage elsewhere. It's
 initially limited to just being able to do this, so if there's something
-missing, open an issue.
+missing, open an issue. It's also pretty lacking in tests for similar reasons.
 
 ## Installation
 
@@ -40,7 +40,13 @@ db.backups
 # => [<Heroku::Postgres::Backup id=abc>]
 
 # capture a backup, waiting for completion
+# optionally, pass true to poll until complete
 backup = db.capture_backup(true)
+
+# or, pass a block to monitor the response whilst it's created
+backup = db.capture_backup(true) do |backup|
+  puts backup
+end
 
 # generate a public url so you can fetch the file
 backup.public_url
