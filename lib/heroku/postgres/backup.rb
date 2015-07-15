@@ -36,7 +36,7 @@ module Heroku
         backups
       end
 
-      def self.capture(app_name, db_name, poll = false)
+      def self.capture(app_name, db_name, poll = false, &block)
         response = Postgres.pg_client.post("/databases/#{db_name}/backups")
 
         backup = new(JSON.parse(response.body))
@@ -49,6 +49,8 @@ module Heroku
             sleep(5) # stop for 5s
             backup.reload
             finished_at = backup.finished_at
+
+            yield backup if block_given?
           end
         end
 

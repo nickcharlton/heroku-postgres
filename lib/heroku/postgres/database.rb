@@ -17,8 +17,8 @@ module Heroku
         db
       end
 
-      def capture_backup(poll = false)
-        Backup.capture(app, db, poll)
+      def capture_backup(poll = false, &block)
+        Backup.capture(app, db, poll, &block)
       end
 
       def backups
