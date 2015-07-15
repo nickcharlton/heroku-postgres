@@ -30,7 +30,7 @@ Or install it yourself as:
 require 'heroku/postgres'
 
 # login (return a client object, but you don't need that directly)
-Heroku::Postgres.login(username: '', password: '')
+Heroku::Postgres.login('username', 'password')
 
 # find the database by app name and database name
 db = Heroku::Postgres.find('app-name', 'db-name')
