@@ -6,6 +6,15 @@ module Heroku
         hash.each { |k, v| send("#{k}=", v) if respond_to?("#{k}=") }
       end
 
+      def update_with_response(o, except_key = [])
+        hash = JSON.parse(o)
+
+        # remove keys that shouldn't be included
+        except_key.each { |k| hash.delete(k) }
+
+        hash.each { |k, v| send("#{k}=", v) if respond_to?("#{k}=") }
+      end
+
       def to_hash
         attrs = instance_variables.map { |v| v.to_s.sub(/^@/, '') }
         Hash[attrs.select { |v| respond_to? v }.map { |v| [v.to_sym, send(v)] }]

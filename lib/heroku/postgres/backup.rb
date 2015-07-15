@@ -36,6 +36,13 @@ module Heroku
         backups
       end
 
+      def reload
+        response = Postgres.pg_client.get("/apps/#{app}/transfers/#{uuid}")
+        update_with_response(response.body)
+
+        self
+      end
+
       # Generate a public URL for accessing this backup.
       def public_url
         response = Postgres.pg_client.post("/apps/#{app}/transfers/#{num}"\
